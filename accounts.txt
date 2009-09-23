@@ -1,0 +1,11 @@
+##
+# Twitter to mixiボイス accounts
+# 
+# タブまたはスペース区切りで
+# 　mixiログインメールアドレス mixiパスワード twitterユーザ名 twitterパスワード
+# の順に記入してください。
+#
+# [注意]
+# このファイルをWeb公開ディレクトリ等、他者から見れる場所に設置しないでください。
+##
+mixi_email   mixi_password  twitter_username    twitter_password
