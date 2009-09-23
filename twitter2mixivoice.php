@@ -7,7 +7,7 @@
  *
  *　PHP versions 5.2
  *
- * @version 0.3b
+ * @version 0.3.1
  * @author  nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
  * @license http://www.php.net/license/3_01.txt  PHP License 3.01
@@ -77,7 +77,7 @@ class TW2MV
     public function __construct($account_file = null)
     {
         if (is_file($account_file)) {
-            $this->load($this->account_file);
+            $this->load($account_file);
         }
     }
 
