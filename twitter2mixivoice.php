@@ -5,9 +5,9 @@
 /**
  * Twitter to mixiボイス
  *
- *　PHP versions 5.2
+ *　PHP versions 5
  *
- * @version 0.3.1
+ * @version 0.4
  * @author  nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
  * @license http://www.php.net/license/3_01.txt  PHP License 3.01
@@ -24,13 +24,14 @@
  * 初回時は過去20件のデータを取得し、mixiボイスに投稿します。
  * 次回以降は、twitterのステータスIDを記憶しているので、そこからの発言を処理します。
  * {twitterアカウント}.datというファイルに、最終取得分のステータスIDが記入されています。
- * 
+ *
  * = 注意事項
  * accounts.txtをWeb公開ディレクトリ等、他者から見れる場所に設置しないでください。
  *
  */
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
+mb_internal_encoding('UTF-8');
 
 /**
  * アカウントファイルのフルパス
@@ -49,7 +50,12 @@ define('ACCOUNTS_FILE', dirname(__FILE__) . DS . 'accounts.txt');
  */
 define('STAT_DIR', dirname(__FILE__) . DS );
 
-
+/**
+ * 1回に取得するTwitterの発言の最大数です。
+ *
+ * @var string
+ */
+define('TWITTER_MAX_STATUS', 20);
 
 // pear include
 set_include_path(dirname(__FILE__) . DS . 'pear' . PS . get_include_path());
@@ -65,7 +71,8 @@ exit(0);
 /**
  *
  *
- * @author nojimage
+ * @author  nojimage
+ * @package tw2mv
  *
  */
 class TW2MV
@@ -129,7 +136,9 @@ class TW2MV
                 foreach ($twitter->status as $message) {
                     $mixi->post_voice( preg_replace("/\n/", '', $message) );
                 }
+
             }
+
         }
     }
 }
@@ -137,7 +146,8 @@ class TW2MV
 /**
  *
  *
- * @author nojimage
+ * @author  nojimage
+ * @package tw2mv
  *
  */
 class TW2MV_Client
@@ -231,7 +241,8 @@ class TW2MV_Client
 /**
  *
  *
- * @author nojimage
+ * @author  nojimage
+ * @package tw2mv
  *
  */
 class TW2MV_Mixi extends TW2MV_Client
@@ -338,7 +349,8 @@ class TW2MV_Mixi extends TW2MV_Client
 /**
  *
  *
- * @author nojimage
+ * @author  nojimage
+ * @package tw2mv
  *
  */
 class TW2MV_Twitter extends TW2MV_Client
@@ -406,25 +418,30 @@ class TW2MV_Twitter extends TW2MV_Client
 
         $this->http->setBasicAuth($this->username, $this->password);
 
-        $result = json_decode($this->get_request(self::$HTTP_URI . 'account/verify_credentials.json'), true);
+        $result = $this->_json_decode($this->get_request(self::$HTTP_URI . 'account/verify_credentials.json'), true);
     }
 
     /**
      * 発言の取得
      *
+     * @param $username
      * @return array
      */
-    public function get_status()
+    public function get_status($username = null)
     {
 
-        $params = array('count' => 20);
+        $params = array('count' => TWITTER_MAX_STATUS);
 
-        // since_id取得
-        if (is_file($this->get_stat_filename())) {
-            $params['since_id'] = file_get_contents($this->get_stat_filename());
+        if (empty($username)) {
+            $username = $this->username;
         }
 
-        $result = json_decode($this->get_request(self::$HTTP_URI . 'statuses/user_timeline/' . $this->username . '.json', $params), true);
+        // since_id取得
+        if (is_file($this->get_stat_filename($username))) {
+            $params['since_id'] = file_get_contents($this->get_stat_filename($username));
+        }
+
+        $result = $this->_json_decode($this->get_request(self::$HTTP_URI . 'statuses/user_timeline/' . $username . '.json', $params));
 
         if (empty($result)) {
             return false;
@@ -433,14 +450,14 @@ class TW2MV_Twitter extends TW2MV_Client
         $result = array_reverse($result);
         $this->status = array();
         foreach ($result as $data) {
-            if ( strpos($data['text'], '@') === 0 ) { continue; }
-            $this->status[] = $data['text'];
+            if ( strpos($data->text, '@') === 0 ) { continue; }
+            $this->status[] = $data->text;
         }
 
-        $lastest_id = $data['id'];
+        $lastest_id = $data->id;
 
         // save to stat
-        if ($fh = fopen($this->get_stat_filename(), 'w')) {
+        if ($fh = fopen($this->get_stat_filename($username), 'w')) {
             fwrite($fh, $lastest_id);
             fclose($fh);
         }
@@ -449,13 +466,36 @@ class TW2MV_Twitter extends TW2MV_Client
     }
 
     /**
+     * status_id格納ファイル名の取得
      *
+     * @param $username
      * @return string
      */
-    public function get_stat_filename()
+    public function get_stat_filename($username = null)
     {
+        if (empty($username)) {
+            $username = $this->username;
+        }
         $this->stat_file_dir = preg_replace('!/+$!', '', $this->stat_file_dir);
-        return $this->stat_file_dir . DS . $this->username . '.dat';
+        return $this->stat_file_dir . DS . $username . '.dat';
+    }
+
+    /**
+     * json decode
+     *
+     * @param $value
+     * @return array
+     */
+    protected function _json_decode($value)
+    {
+        if (function_exists('json_decode')) {
+            return json_decode($value);
+        }
+
+        // use pear library
+        require_once 'Services' . DS . 'JSON.php';
+        $json = new Services_JSON();
+        return $json->decode($value);
     }
 
 }
