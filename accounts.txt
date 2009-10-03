@@ -2,10 +2,15 @@
 # Twitter to mixiボイス accounts
 # 
 # タブまたはスペース区切りで
-# 　mixiログインメールアドレス mixiパスワード twitterユーザ名 twitterパスワード
+# 　mixiログインメールアドレス mixiパスワード twitterユーザ名 twitterパスワード   投稿ハッシュタグ(オプション)
 # の順に記入してください。
+# 
+# 投稿ハッシュタグ
+#   #hash  はそのハッシュタグが付与されているメッセージのみ投稿されます。
+#   !#hash はそのハッシュタグが付与されているメッセージは投稿されません。
+# 複数の指定がある場合は、AND条件として結合されます。 
 #
 # [注意]
 # このファイルをWeb公開ディレクトリ等、他者から見れる場所に設置しないでください。
 ##
-mixi_email   mixi_password  twitter_username    twitter_password
+mixi_email   mixi_password  twitter_username    twitter_password    #posthash1  !#posthash2  ...

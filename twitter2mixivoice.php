@@ -5,9 +5,11 @@
 /**
  * Twitter to mixiボイス
  *
- *　PHP versions 5
+ * PHP versions 5
  *
- * @version 0.4
+ * Copyright 2009, nojimage (http://php-tips.com/)
+ *
+ * @version 0.5
  * @author  nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
  * @license http://www.php.net/license/3_01.txt  PHP License 3.01
@@ -27,6 +29,9 @@
  *
  * = 注意事項
  * accounts.txtをWeb公開ディレクトリ等、他者から見れる場所に設置しないでください。
+ *
+ * This product includes PHP software, freely available from
+ * <http://www.php.net/software/>
  *
  */
 define('DS', DIRECTORY_SEPARATOR);
@@ -110,10 +115,13 @@ class TW2MV
                 continue;
             }
 
-            if (preg_match('/(.*?)[\s]+(.*?)[\s]+(.*?)[\s]+(.*?)$/', $line, $matches)) {
+            // アカウントデータの取得
+            $account = preg_split('/[\s]+/', $line);
+            if (count($account) >= 4) {
                 $this->accounts[] = array(
-                    'mixi_email' => $matches[1], 'mixi_password' => $matches[2],
-                    'twitter_username' => $matches[3], 'twitter_password' => $matches[4]);
+                    'mixi_email' => $account[0], 'mixi_password' => $account[1],
+                    'twitter_username' => $account[2], 'twitter_password' => $account[3],
+                    'filter' => array_slice($account, 4));
             }
         }
 
@@ -134,12 +142,49 @@ class TW2MV
                 $mixi = new TW2MV_Mixi($account['mixi_email'], $account['mixi_password']);
 
                 foreach ($twitter->status as $message) {
+
+                    // filter message
+                    if (!empty($account['filter']) && !$this->filter($account['filter'], $message)) {
+                        continue;
+                    }
+
                     $mixi->post_voice( preg_replace("/\n/", '', $message) );
                 }
 
             }
 
         }
+    }
+
+    /**
+     * メッセージがフィルター条件に合致するかチェックします
+     *
+     * @param $filters
+     * @param $message
+     * @return boolean
+     */
+    public function filter($filters, $message)
+    {
+        if (empty($filters)) {
+            return true;
+        }
+        
+        foreach ($filters as $filter) {
+            if (preg_match('/!#.+/u', $filter)) {
+                // 否定条件
+                if (mb_strpos($message, substr($filter, 1)) !== FALSE) {
+                    // 文字列が存在する場合
+                    return false;
+                }
+            } else {
+                // 肯定条件
+                if (mb_strpos($message, $filter) === FALSE) {
+                    // 文字列が存在しない場合
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 
@@ -443,7 +488,7 @@ class TW2MV_Twitter extends TW2MV_Client
 
         $result = $this->_json_decode($this->get_request(self::$HTTP_URI . 'statuses/user_timeline/' . $username . '.json', $params));
 
-        if (empty($result)) {
+        if (empty($result) || !is_array($result)) {
             return false;
         }
 
