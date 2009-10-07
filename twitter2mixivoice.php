@@ -1,15 +1,12 @@
 <?php
 /**
- * $Id$
- */
-/**
  * Twitter to mixiボイス
  *
  * PHP versions 5
  *
  * Copyright 2009, nojimage (http://php-tips.com/)
  *
- * @version 0.5
+ * @version 0.5.1
  * @author  nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
  * @license http://www.php.net/license/3_01.txt  PHP License 3.01
@@ -168,23 +165,45 @@ class TW2MV
         if (empty($filters)) {
             return true;
         }
-        
-        foreach ($filters as $filter) {
+
+        $denys  = array();
+        $allows = array();
+
+        foreach ($filters as $filter)
+        {
             if (preg_match('/!#.+/u', $filter)) {
                 // 否定条件
-                if (mb_strpos($message, substr($filter, 1)) !== FALSE) {
-                    // 文字列が存在する場合
-                    return false;
-                }
+                $denys[] = substr($filter, 1);
             } else {
                 // 肯定条件
-                if (mb_strpos($message, $filter) === FALSE) {
-                    // 文字列が存在しない場合
-                    return false;
-                }
+                $allows[] = $filter;
             }
         }
-        return true;
+
+        // 否定条件の評価
+        foreach ($denys as $filter)
+        {
+            if (mb_strpos($message, $filter) !== FALSE) {
+                // 文字列が存在する場合
+                return false;
+            }
+        }
+
+        if (empty($allows)) {
+            // 肯定フィルターがなければ
+            return true;
+        }
+        
+        $result = false;
+        foreach ($allows as $filter) {
+            if (mb_strpos($message, $filter) !== FALSE) {
+                // 文字列が存在する場合
+                $result = true;
+                break;
+            }
+        }
+        
+        return $result;
     }
 }
 
