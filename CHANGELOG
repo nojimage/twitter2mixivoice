@@ -1,3 +1,13 @@
+commit 9080c66708c2f8aa249c13049dc55799ff1cfda5
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Oct 9 21:45:49 2009 +0900
+
+    twitter2mixivoice ver 0.5.2
+    mixivoice2twitter ver 0.1
+    
+    mixivoice2twitterの追加
+    ライセンスをMITライセンスに変更
+
 commit 1f1214fe6cb603de4c6da1ba253fc81093f03b72
 Author: nojimage <nojimage@gmail.com>
 Date:   Wed Oct 7 19:54:48 2009 +0900
@@ -39,3 +49,9 @@ Author: nojimage <nojimage@gmail.com>
 Date:   Wed Sep 23 23:52:12 2009 +0900
 
     version 0.3
+
+commit b6c11b5877a1f1dd7d5560f7216dbd77ee36b1f9
+Author: nojimage <nojimage@gmail.com>
+Date:   Wed Sep 23 23:45:57 2009 +0900
+
+    first commit
