@@ -5,3 +5,8 @@
 # ~/tw2mv/twitter2mixivoice.php は設置パスに書き換えてください。
 ##
 */15 * * * * php -q ~/tw2mv/twitter2mixivoice.php
+
+##
+# mixivoice2twitter.php sample
+##
+*/15 * * * * php -q ~/tw2mv/mixivoice2twitter.php

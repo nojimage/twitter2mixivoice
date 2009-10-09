@@ -1,0 +1,41 @@
+commit 1f1214fe6cb603de4c6da1ba253fc81093f03b72
+Author: nojimage <nojimage@gmail.com>
+Date:   Wed Oct 7 19:54:48 2009 +0900
+
+    version 0.5.1
+    フィルター条件修正
+
+commit 4b85e85cdfa3dd078c69048a90a351107aa5e178
+Author: nojimage <nojimage@gmail.com>
+Date:   Sun Oct 4 07:46:22 2009 +0900
+
+    version 0.5
+    投稿フィルタリング機能の追加
+
+commit 2e7a2b3445959d05b3335be2ab20f26c1943765b
+Author: nojimage <nojimage@gmail.com>
+Date:   Sat Sep 26 04:05:21 2009 +0900
+
+    version 0.4
+    - pearライブラリの同梱
+    - json_decodeが存在しない場合、Service_JSONで代用
+    - 他、メソッド修正
+
+commit f4a21c9ce9a7cc1d5ab83c5b94b3eb1791280128
+Author: nojimage <nojimage@gmail.com>
+Date:   Fri Sep 25 17:21:20 2009 +0900
+
+    .htaccessサンプルの追加
+
+commit 8dc7f68059fddf143bcd8eb5c22f2a267f78a8f9
+Author: nojimage <nojimage@gmail.com>
+Date:   Thu Sep 24 00:46:07 2009 +0900
+
+    version 0.3.1
+    アカウントファイルの呼び出し先がカレントディレクトリになっていた問題の修正
+
+commit da516093117aae2f9465ed51bad008c0d8259c8c
+Author: nojimage <nojimage@gmail.com>
+Date:   Wed Sep 23 23:52:12 2009 +0900
+
+    version 0.3

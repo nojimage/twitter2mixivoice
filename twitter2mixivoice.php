@@ -5,13 +5,17 @@
  * PHP versions 5
  *
  * Copyright 2009, nojimage (http://php-tips.com/)
- *
- * @version 0.5.1
- * @author  nojimage <nojimage at gmail.com>
+ * 
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ * 
+ * @filesource
+ * @version   0.5.2
+ * @author    nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
- * @license http://www.php.net/license/3_01.txt  PHP License 3.01
- * @link    http://php-tips.com/php/2009/09/twitter2mixivoice
- * @since   File available since Release 0.1
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link    　http://php-tips.com/php/2009/09/twitter2mixivoice
+ * @since   　File available since Release 0.1
  *
  * = 機能
  * * twitterの発言をmixiボイスにも投稿します。
@@ -27,9 +31,10 @@
  * = 注意事項
  * accounts.txtをWeb公開ディレクトリ等、他者から見れる場所に設置しないでください。
  *
- * This product includes PHP software, freely available from
- * <http://www.php.net/software/>
- *
+ * mixivoice2twitter(mv2tw)と併用する場合は、twitter側に再投稿しないよう、
+ * TW2MV_Twitter::$comment_suffixにあるキーワードをmv2twの除外キーワードとして
+ * 指定しておいてください。（設定のない場合、投稿がループする可能性があります。）
+ * 
  */
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
@@ -193,7 +198,7 @@ class TW2MV
             // 肯定フィルターがなければ
             return true;
         }
-        
+
         $result = false;
         foreach ($allows as $filter) {
             if (mb_strpos($message, $filter) !== FALSE) {
@@ -202,7 +207,7 @@ class TW2MV
                 break;
             }
         }
-        
+
         return $result;
     }
 }
@@ -465,24 +470,13 @@ class TW2MV_Twitter extends TW2MV_Client
             $this->stat_file_dir = $stat_file_dir;
         }
 
-        if (!empty($username) && !empty($password)) {
-            $this->login($username, $password);
+        if (!empty($username)) {
+            $this->username = $username;
         }
-    }
 
-    /**
-     *
-     * @param $username
-     * @param $password
-     */
-    public function login($username, $password)
-    {
-        $this->username = $username;
-        $this->password = $password;
-
-        $this->http->setBasicAuth($this->username, $this->password);
-
-        $result = $this->_json_decode($this->get_request(self::$HTTP_URI . 'account/verify_credentials.json'), true);
+        if (!empty($password)) {
+            $this->password = $password;
+        }
     }
 
     /**
