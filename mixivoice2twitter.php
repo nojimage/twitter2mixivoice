@@ -10,7 +10,7 @@
  * Redistributions of files must retain the above copyright notice.
  * 
  * @filesource
- * @version 　0.1
+ * @version 　0.2
  * @author    nojimage <nojimage at gmail.com>
  * @copyright 2009 nojimage
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -431,7 +431,7 @@ class MV2TW_Mixi extends TW2MV_Client
         // 最終取得時刻を書き込み
         $this->save_last_post_time($messages[0]['post_time'], 'my_voice');
 
-        return $result;
+        return array_reverse($result); // 古いものから順に並べる
     }
 
     /**
@@ -470,7 +470,7 @@ class MV2TW_Mixi extends TW2MV_Client
         // 最終取得時刻を書き込み
         $this->save_last_post_time($messages[0]['post_time'], 'replay');
 
-        return $result;
+        return array_reverse($result); // 古いものから順に並べる
     }
     /**
      * 投稿キーの取得
