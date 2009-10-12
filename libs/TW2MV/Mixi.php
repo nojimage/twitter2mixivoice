@@ -12,7 +12,7 @@ require_once 'Client.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.0
+ * @version    1.1
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -50,7 +50,7 @@ class TW2MV_Mixi extends TW2MV_Client
     {
         $next_url = '/home.pl';
         $datas = compact('email', 'password', 'next_url');
-        $this->post_request(self::$HTTP_URI . 'login.pl', $datas); // FIXME: to https
+        $this->post_request(self::$HTTPS_URI . 'login.pl', $datas);
     }
 
 }
