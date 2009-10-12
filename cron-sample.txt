@@ -2,11 +2,6 @@
 # Cron schedule sample
 # 
 # 15分ごとに実行します。
-# ~/tw2mv/twitter2mixivoice.php は設置パスに書き換えてください。
+# ~/tw2mv/tw2mv は設置パスに書き換えてください。
 ##
-*/15 * * * * php -q ~/tw2mv/twitter2mixivoice.php
-
-##
-# mixivoice2twitter.php sample
-##
-*/15 * * * * php -q ~/tw2mv/mixivoice2twitter.php
+*/15 * * * * php -q ~/tw2mv/tw2mv.php

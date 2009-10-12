@@ -1,3 +1,28 @@
+commit 8c024034291769c6bff0ba361b8bed9f5c4b6baf
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Oct 12 23:15:53 2009 +0900
+
+    version 2.0 beta1
+    不足ファイルの追加等
+
+commit d48d48dccb3cc9fca12a21b57075bf128e1eb9cc
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Oct 12 23:13:35 2009 +0900
+
+    Version 2.0 beta1
+
+commit 7ca553c1c0ce825ca02e71ff9f3e66785442df30
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 10 02:10:55 2009 +0900
+
+    TODO追加
+
+commit fdc3dc557210c5b8f9cdf5bd3232db7ede71788a
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Oct 9 22:42:57 2009 +0900
+
+    [tw2mv] version 0.5.2, [mv2tw] version 0.2
+
 commit d839e6ea8e2ae318d35dad12f2d34170386de85f
 Author: nojimage <nojimage at gmail.com>
 Date:   Fri Oct 9 22:41:40 2009 +0900
