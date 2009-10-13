@@ -1,9 +1,16 @@
-commit 8c024034291769c6bff0ba361b8bed9f5c4b6baf
+commit a2b50faeafef0113d690de4446d0a433afbf8641
 Author: nojimage <nojimage at gmail.com>
-Date:   Mon Oct 12 23:15:53 2009 +0900
+Date:   Tue Oct 13 00:14:42 2009 +0900
+
+    version 2.0 beta2
+    mixiへのログイン時、HTTPSにて接続するように変更
+
+commit 7b698e4f50e8b1c91c80655c6b27b33ea572ce6b
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Oct 12 23:33:00 2009 +0900
 
     version 2.0 beta1
-    不足ファイルの追加等
+    tw2mv.phpが抜けていたので追加
 
 commit d48d48dccb3cc9fca12a21b57075bf128e1eb9cc
 Author: nojimage <nojimage at gmail.com>
