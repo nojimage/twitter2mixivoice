@@ -12,7 +12,7 @@ require_once 'Client.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.1
+ * @version    1.2
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -48,6 +48,9 @@ class TW2MV_Mixi extends TW2MV_Client
      */
     public function login($email, $password)
     {
+        // パスワードを復号化
+        $password = TW2MV_Configure::decrypt($password);
+        
         $next_url = '/home.pl';
         $datas = compact('email', 'password', 'next_url');
         $this->post_request(self::$HTTPS_URI . 'login.pl', $datas);

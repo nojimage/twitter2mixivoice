@@ -12,7 +12,7 @@ require_once 'Client.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.0
+ * @version    1.1
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -86,7 +86,7 @@ class TW2MV_Twitter extends TW2MV_Client
             debug($datas);
         } else {
             // 投稿
-            $this->http->setBasicAuth($this->config->twitter_username, $this->config->twitter_password);
+            $this->http->setAuth($this->config->twitter_username, TW2MV_Configure::decrypt($this->config->twitter_password));
             $result = $this->_json_decode($this->post_request(self::$HTTP_URI . 'statuses/update.json', $datas, true));
         }
 
@@ -108,7 +108,7 @@ class TW2MV_Twitter extends TW2MV_Client
         if ($this->config->core_fetch_only) {
             debug($datas);
         } else {
-            $this->http->setBasicAuth($this->config->twitter_username, $this->config->twitter_password);
+            $this->http->setAuth($this->config->twitter_username, TW2MV_Configure::decrypt($this->config->twitter_password));
             $result = $this->_json_decode($this->post_request(self::$HTTP_URI . 'direct_messages/new.json', $datas, true));
         }
 

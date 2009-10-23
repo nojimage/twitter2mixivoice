@@ -1,5 +1,5 @@
 <?php
-require_once 'HTTP' . DS . 'Request.php';
+require_once 'HTTP' . DS . 'Request2.php';
 /**
  * TW2MV_Client
  *
@@ -10,7 +10,7 @@ require_once 'HTTP' . DS . 'Request.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.0
+ * @version    1.1
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -34,7 +34,7 @@ class TW2MV_Client
 
     /**
      * HTTP_Request
-     * @var HTTP_Request
+     * @var HTTP_Request2
      */
     protected $http;
 
@@ -56,7 +56,15 @@ class TW2MV_Client
      */
     public function __construct($config)
     {
-        $this->http = new HTTP_Request();
+        try {
+            $this->http = new HTTP_Request2();
+            $this->http->setConfig('ssl_verify_peer', false);
+            
+        } catch (Exception $e) {
+            debug($e->getMessage());
+
+        }
+
         $this->config = $config;
     }
 
@@ -65,27 +73,35 @@ class TW2MV_Client
      *
      * @param $url
      * @param $datas
-     * @param $saveBody
      * @return string
      */
-    public function post_request($url, $datas = array(), $saveBody = true)
+    public function post_request($url, $datas = array())
     {
-        $this->http->setURL($url);
-        $this->http->setMethod(HTTP_REQUEST_METHOD_POST);
-        foreach ($datas as $key => $val) {
-            $this->http->addPostData($key, mb_convert_encoding($val, $this->response_encoding, 'UTF-8'));
-        }
-        if (!empty($this->cookies)) {
-            foreach ($this->cookies as $cookie) {
-                $this->http->addCookie($cookie['name'], $cookie['value']);
+        $body = '';
+        try {
+            $this->http->setURL($url);
+            $this->http->setMethod(HTTP_Request2::METHOD_POST);
+            foreach ($datas as $key => $val) {
+                $this->http->addPostParameter($key, mb_convert_encoding($val, $this->response_encoding, 'UTF-8'));
             }
-        }
-        $this->http->sendRequest($saveBody);
-        if (count($this->http->getResponseCookies())) {
-            $this->cookies = $this->http->getResponseCookies();
+            if (!empty($this->cookies)) {
+                foreach ($this->cookies as $cookie) {
+                    $this->http->addCookie($cookie['name'], $cookie['value']);
+                }
+            }
+
+            $response = $this->http->send();
+            if (count($response->getCookies())) {
+                $this->cookies = $response->getCookies();
+            }
+
+            $body = mb_convert_encoding($response->getBody(), 'UTF-8', $this->response_encoding);
+
+        } catch (Exception $e) {
+            debug($e->getMessage());
         }
 
-        return mb_convert_encoding($this->http->getResponseBody(), 'UTF-8', $this->response_encoding);
+        return $body;
     }
 
     /**
@@ -93,27 +109,38 @@ class TW2MV_Client
      *
      * @param $url
      * @param $datas
-     * @param $saveBody
      * @return string
      */
-    public function get_request($url, $datas = array(), $saveBody = true)
+    public function get_request($url, $datas = array())
     {
-        $this->http->setURL($url);
-        $this->http->setMethod(HTTP_REQUEST_METHOD_GET);
-        foreach ($datas as $key => $val) {
-            $this->http->addQueryString($key, mb_convert_encoding($val, $this->response_encoding, 'UTF-8'), true);
-        }
-        if (!empty($this->cookies)) {
-            foreach ($this->cookies as $cookie) {
-                $this->http->addCookie($cookie['name'], $cookie['value']);
+        $body = '';
+        try {
+            $url2 = new Net_URL2($url);
+            foreach ($datas as $key => $val) {
+                $url2->setQueryVariable($key, mb_convert_encoding($val, $this->response_encoding, 'UTF-8'), true);
             }
-        }
-        $this->http->sendRequest($saveBody);
-        if (count($this->http->getResponseCookies())) {
-            $this->cookies = $this->http->getResponseCookies();
+
+            $this->http->setURL($url2);
+            $this->http->setMethod(HTTP_Request2::METHOD_GET);
+            if (!empty($this->cookies)) {
+                foreach ($this->cookies as $cookie) {
+                    $this->http->addCookie($cookie['name'], $cookie['value']);
+                }
+            }
+
+            $response = $this->http->send();
+
+            if (count($response->getCookies())) {
+                $this->cookies = $response->getCookies();
+            }
+
+            $body = mb_convert_encoding($response->getBody(), 'UTF-8', $this->response_encoding);
+
+        } catch (Exception $e) {
+            debug($e->getMessage());
         }
 
-        return mb_convert_encoding($this->http->getResponseBody(), 'UTF-8', $this->response_encoding);
+        return $body;
     }
 
     /**
@@ -169,7 +196,7 @@ class TW2MV_Client
                 return false;
             }
         }
-        
+
         return true;
     }
 }

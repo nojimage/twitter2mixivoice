@@ -17,6 +17,9 @@
 ;; 実際の投稿は行わず、IDの取得のみを行うか
 ; fetch_only = false
 
+;; 実行時にパスワードを暗号化して設定ファイルを書き換えるか
+; password_crypt = on;
+
 [MIXI]
 ;; mixiのログインEmail
 email    = ""

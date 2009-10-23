@@ -11,7 +11,7 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.0
+ * @version    1.1
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -28,13 +28,18 @@ class TW2MV
     /**
      * 実行
      *
-     * @param string $config
+     * @param array $config_file
+     * @param array $options
      */
-    static function start($config_file = 'tw2mv.ini.php')
+    static function start($config_file = null, $options = null)
     {
+        if (empty($config_file)) {
+            $config_file = CONFIG_DIR . 'tw2mv.ini.php';
+        }
+        
         // 設定読み込み
         require_once('TW2MV' . DS . 'Configure.php');
-        $config = new TW2MV_Configure($config_file);
+        $config = new TW2MV_Configure($config_file, $options);
 
         debug($config);
 
@@ -116,12 +121,47 @@ class TW2MV
 
                 // 古いものから投稿
                 $messages = array_reverse($messages);
-                
+
                 foreach ($messages as $message)
                 {
                     $twitter->direct_message($message, $config->twitter_username);
                 }
             }
+        }
+    }
+
+    /**
+     * コマンドラインオプションのセット
+     * 
+     * @param $argc
+     * @param $argv
+     * @return Console_CommandLine_Result
+     */
+    static function parse_options($argc, $argv)
+    {
+        require_once 'Console/CommandLine.php';
+        $parser = new Console_CommandLine(array(
+            'description' => 'twitterとmixiボイス間でメッセージの転送を行うスクリプトです。',
+            'version' => '2.0 beta3'));
+
+        require_once('TW2MV' . DS . 'Configure.php');
+        // オプションのセット
+        TW2MV_Configure::set_commandline_parser($parser);
+        
+        // 引数の追加
+        $parser->addArgument('config_files', array(
+            'optional'    => true,
+            'multiple'    => true,
+            'description' => '設定ファイル'));
+        
+        // パーサの実行
+        try {
+            $result = $parser->parse($argc, $argv);
+            return $result;
+            
+        } catch (Exception $e) {
+            $parser->displayError($e->getMessage());
+
         }
     }
 }
