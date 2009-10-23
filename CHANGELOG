@@ -1,3 +1,29 @@
+commit 587052c892c09d2af28aa95add4f557c18122c79
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 04:56:47 2009 +0900
+
+    コマンドラインの一部追加
+    設定ファイルのパスワード暗号化
+    HTTP_RequestからHTTP_Request2に変更
+
+commit 758b82a80ce57e978d4b5cd35218240bbef792b7
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 03:33:21 2009 +0900
+
+    Net_Socket削除
+
+commit f52c27ca26973be828684111d413f3fdbfdd27ba
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 03:20:43 2009 +0900
+
+    HTTP_Request, Net_URLの削除
+
+commit bf380fb8e3e40c69638c24d1692526ef1ea008f4
+Author: nojimage <nojimage at gmail.com>
+Date:   Tue Oct 13 13:14:43 2009 +0900
+
+    TODO更新
+
 commit a2b50faeafef0113d690de4446d0a433afbf8641
 Author: nojimage <nojimage at gmail.com>
 Date:   Tue Oct 13 00:14:42 2009 +0900
