@@ -23,7 +23,7 @@
  * Debug flag
  * @var int 0:product 1:debug
  */
-define('DEBUG', 1);
+define('DEBUG', 0);
 
 // -- Load lib file
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'lib.php');
