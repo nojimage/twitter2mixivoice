@@ -11,7 +11,7 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.1
+ * @version    1.2
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2009 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -144,8 +144,18 @@ class TW2MV_Configure
     function load($config_file, $options = null)
     {
         if (!is_file($config_file)) {
-            debug('config file not found.');
-            return false;
+            
+            // 相対指定の場合は、CONFIG_DIRディレクトリからも走査
+            if (strpos($config_file, DS) !== NULL) {
+                $config_file = CONFIG_DIR . $config_file;
+                debug($config_file);
+            }
+            
+            // それでも無いなら終了
+            if (!is_file($config_file)) {
+                debug('config file not found.');
+                return false;
+            }
         }
 
         $config  = parse_ini_file($config_file, true);
