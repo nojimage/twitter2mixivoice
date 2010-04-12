@@ -43,12 +43,12 @@ password = ""
 ;exclude_reply = yes
 
 ;; mixiボイスのメッセージ取得時、除外するキーワード
-;filter.denys[]  = null
-;filter.denys[]  = null
+;filter.denys[]  = '除外キーワードA'
+;filter.denys[]  = '除外キーワードB'
 
 ;; mixiボイスのメッセージ取得時、許可するキーワード
-;filter.allows[] = null
-;filter.allows[] = null
+;filter.allows[] = '許可キーワードA'
+;filter.allows[] = '許可キーワードB'
 
 [TWITTER]
 ;; twitterのログインユーザ名
@@ -67,9 +67,9 @@ password = ""
 ;exclude_reply = yes
 
 ;; twitterのメッセージ取得時、除外するキーワード
-;filter.denys[]  = null
-;filter.denys[]  = null
+;filter.denys[]  = '除外キーワードA'
+;filter.denys[]  = '除外キーワードB'
 
 ;; twitterのメッセージ取得時、許可するキーワード
-;filter.allows[] = null
-;filter.allows[] = null
+;filter.allows[] = '許可キーワードA'
+;filter.allows[] = '許可キーワードB'
