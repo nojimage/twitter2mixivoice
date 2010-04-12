@@ -17,7 +17,7 @@
  * @author    Michael Gauthier <mike@silverorange.com>
  * @copyright 2007 David JEAN LOUIS, 2009 silverorange
  * @license   http://opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $Id: CustomMessageProvider.php,v 1.1 2009/06/19 10:22:48 izi Exp $
+ * @version   CVS: $Id: CustomMessageProvider.php 282427 2009-06-19 10:22:48Z izi $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 1.1.0
  * @filesource
@@ -35,7 +35,7 @@
  * @author    Michael Gauthier <mike@silverorange.com>
  * @copyright 2007 David JEAN LOUIS, 2009 silverorange
  * @license   http://opensource.org/licenses/mit-license.php MIT License
- * @version   Release: 1.1.0
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Interface available since release 1.1.0
  */

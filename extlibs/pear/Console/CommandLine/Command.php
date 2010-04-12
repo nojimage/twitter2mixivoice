@@ -16,7 +16,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   CVS: $Id: Command.php,v 1.2 2009/06/08 12:58:39 izi Exp $
+ * @version   CVS: $Id: Command.php 281818 2009-06-08 12:58:39Z izi $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 0.1.0
  * @filesource
@@ -39,7 +39,7 @@ require_once 'Console/CommandLine.php';
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   Release: 1.1.0
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Class available since release 0.1.0
  */

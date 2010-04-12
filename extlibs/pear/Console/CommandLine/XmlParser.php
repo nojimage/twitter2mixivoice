@@ -16,7 +16,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   CVS: $Id: XmlParser.php,v 1.4 2009/06/19 10:22:48 izi Exp $
+ * @version   CVS: $Id: XmlParser.php 282427 2009-06-19 10:22:48Z izi $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 0.1.0
  * @filesource
@@ -35,7 +35,7 @@ require_once 'Console/CommandLine.php';
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   Release: @package_version@
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Class available since release 0.1.0
  */
@@ -100,8 +100,8 @@ class Console_CommandLine_XmlParser
      */
     public static function validate($doc) 
     {
-        if (is_dir('@data_dir@' . DIRECTORY_SEPARATOR . 'Console_CommandLine')) {
-            $rngfile = '@data_dir@' . DIRECTORY_SEPARATOR
+        if (is_dir('/Users/nojima/Sites/workspace/twitter2mixi/extlibs/pear/data' . DIRECTORY_SEPARATOR . 'Console_CommandLine')) {
+            $rngfile = '/Users/nojima/Sites/workspace/twitter2mixi/extlibs/pear/data' . DIRECTORY_SEPARATOR
                 . 'Console_CommandLine' . DIRECTORY_SEPARATOR . 'data' 
                 . DIRECTORY_SEPARATOR . 'xmlschema.rng';
         } else {

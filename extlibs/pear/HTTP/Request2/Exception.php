@@ -37,7 +37,7 @@
  * @package    HTTP_Request2
  * @author     Alexey Borzov <avb@php.net>
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
- * @version    CVS: $Id: Exception.php 273003 2009-01-07 19:28:22Z avb $
+ * @version    SVN: $Id: Exception.php 290192 2009-11-03 21:29:32Z avb $
  * @link       http://pear.php.net/package/HTTP_Request2
  */
 
@@ -54,7 +54,7 @@ require_once 'PEAR/Exception.php';
  *
  * @category   HTTP
  * @package    HTTP_Request2
- * @version    Release: 0.4.1
+ * @version    Release: 0.5.1
  */
 class HTTP_Request2_Exception extends PEAR_Exception
 {

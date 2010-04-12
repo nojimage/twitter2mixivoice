@@ -16,7 +16,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   CVS: $Id: Option.php,v 1.4 2009/06/19 10:22:48 izi Exp $
+ * @version   CVS: $Id: Option.php 292158 2009-12-15 12:14:28Z rquadling $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 0.1.0
  * @filesource
@@ -36,7 +36,7 @@ require_once 'Console/CommandLine/Element.php';
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   Release: 1.1.0
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Class available since release 0.1.0
  */
@@ -73,7 +73,7 @@ class Console_CommandLine_Option extends Console_CommandLine_Element
     public $default;
 
     /**
-     * An array of possible values for the option if this array is not empty 
+     * An array of possible values for the option. If this array is not empty 
      * and the value passed is not in the array an exception is raised.
      * This only make sense for actions that accept values of course.
      *
@@ -240,8 +240,19 @@ class Console_CommandLine_Option extends Console_CommandLine_Element
      */
     public function dispatchAction($value, $result, $parser)
     {
+        $actionInfo = Console_CommandLine::$actions[$this->action];
+        if (true === $actionInfo[1]) {
+            // we have a "builtin" action
+            $tokens = explode('_', $actionInfo[0]);
+            include_once implode('/', $tokens) . '.php';
+        }
+        $clsname = $actionInfo[0];
+        if ($this->_action_instance === null) {
+            $this->_action_instance  = new $clsname($result, $this, $parser);
+        }
+
         // check value is in option choices
-        if (!empty($this->choices) && !in_array($value, $this->choices)) {
+        if (!empty($this->choices) && !in_array($this->_action_instance->format($value), $this->choices)) {
             throw Console_CommandLine_Exception::factory(
                 'OPTION_VALUE_NOT_VALID',
                 array(
@@ -252,16 +263,6 @@ class Console_CommandLine_Option extends Console_CommandLine_Element
                 $parser,
                 $this->messages
             );
-        }
-        $actionInfo = Console_CommandLine::$actions[$this->action];
-        if (true === $actionInfo[1]) {
-            // we have a "builtin" action
-            $tokens = explode('_', $actionInfo[0]);
-            include_once implode('/', $tokens) . '.php';
-        }
-        $clsname = $actionInfo[0];
-        if ($this->_action_instance === null) {
-            $this->_action_instance  = new $clsname($result, $this, $parser);
         }
         $this->_action_instance->execute($value, $this->action_params);
     }

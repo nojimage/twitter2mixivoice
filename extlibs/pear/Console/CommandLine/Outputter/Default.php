@@ -16,7 +16,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   CVS: $Id: Default.php,v 1.1 2008/12/27 10:52:28 izi Exp $
+ * @version   CVS: $Id: Default.php 271998 2008-12-27 10:52:28Z izi $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 0.1.0
  * @filesource
@@ -35,7 +35,7 @@ require_once 'Console/CommandLine/Outputter.php';
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   Release: 1.1.0
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Class available since release 0.1.0
  */

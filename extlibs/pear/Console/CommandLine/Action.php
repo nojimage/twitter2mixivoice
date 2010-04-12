@@ -16,7 +16,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   CVS: $Id: Action.php,v 1.1 2008/12/27 10:52:27 izi Exp $
+ * @version   CVS: $Id: Action.php 290510 2009-11-11 16:55:29Z izi $
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     File available since release 0.1.0
  * @filesource
@@ -30,7 +30,7 @@
  * @author    David JEAN LOUIS <izimobil@gmail.com>
  * @copyright 2007 David JEAN LOUIS
  * @license   http://opensource.org/licenses/mit-license.php MIT License 
- * @version   Release: 1.1.0
+ * @version   Release: 1.1.3
  * @link      http://pear.php.net/package/Console_CommandLine
  * @since     Class available since release 0.1.0
  */
@@ -92,6 +92,22 @@ abstract class Console_CommandLine_Action
             return $this->result->options[$this->option->name];
         }
         return null;
+    }
+
+    // }}}
+    // format() {{{
+
+    /**
+     * Allow a value to be pre-formatted prior to being used in a choices test.
+     * Setting $value to the new format will keep the formatting.
+     *
+     * @param mixed &$value The value to format
+     *
+     * @return mixed The formatted value
+     */
+    public function format(&$value)
+    {
+        return $value;
     }
 
     // }}}

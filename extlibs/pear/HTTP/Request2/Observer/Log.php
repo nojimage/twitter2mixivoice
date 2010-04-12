@@ -38,19 +38,19 @@
  * @author   David Jean Louis <izi@php.net>
  * @author   Alexey Borzov <avb@php.net>
  * @license  http://opensource.org/licenses/bsd-license.php New BSD License
- * @version  CVS: $Id: Log.php 272593 2009-01-02 16:27:14Z avb $
+ * @version  SVN: $Id: Log.php 290743 2009-11-14 13:27:49Z avb $
  * @link     http://pear.php.net/package/HTTP_Request2
  */
 
 /**
  * Exception class for HTTP_Request2 package
- */ 
+ */
 require_once 'HTTP/Request2/Exception.php';
 
 /**
  * A debug observer useful for debugging / testing.
  *
- * This observer logs to a log target data corresponding to the various request 
+ * This observer logs to a log target data corresponding to the various request
  * and response events, it logs by default to php://output but can be configured
  * to log to a file or via the PEAR Log package.
  *
@@ -87,7 +87,7 @@ require_once 'HTTP/Request2/Exception.php';
  * @author   David Jean Louis <izi@php.net>
  * @author   Alexey Borzov <avb@php.net>
  * @license  http://opensource.org/licenses/bsd-license.php New BSD License
- * @version  Release: 0.4.1
+ * @version  Release: 0.5.1
  * @link     http://pear.php.net/package/HTTP_Request2
  */
 class HTTP_Request2_Observer_Log implements SplObserver
@@ -143,7 +143,7 @@ class HTTP_Request2_Observer_Log implements SplObserver
     // update() {{{
 
     /**
-     * Called when the request notify us of an event.
+     * Called when the request notifies us of an event.
      *
      * @param HTTP_Request2 $subject The HTTP_Request2 instance
      *
@@ -168,7 +168,7 @@ class HTTP_Request2_Observer_Log implements SplObserver
             }
             break;
         case 'sentBodyPart':
-            $this->log('> ' . $event['data']);
+            $this->log('> ' . $event['data'] . ' byte(s) sent');
             break;
         case 'receivedHeaders':
             $this->log(sprintf('< HTTP/%s %s %s',
@@ -189,12 +189,12 @@ class HTTP_Request2_Observer_Log implements SplObserver
             break;
         }
     }
-    
+
     // }}}
     // log() {{{
 
     /**
-     * Log the given message to the configured target.
+     * Logs the given message to the configured target.
      *
      * @param string $message Message to display
      *
