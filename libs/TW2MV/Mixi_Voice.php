@@ -12,9 +12,9 @@ require_once 'Mixi.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.0
+ * @version    1.1
  * @author     nojimage <nojimage at gmail.com>
- * @copyright  2009 nojimage
+ * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link       http://php-tips.com/
  * @package    tw2mv
@@ -205,6 +205,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
      * @param string $page
      * @param string $last_id
      * @return array
+     * @since      File available since Release 2.0.4
      */
     protected function _parseReply($page, $last_id)
     {

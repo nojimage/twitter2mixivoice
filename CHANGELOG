@@ -1,3 +1,69 @@
+commit 2723ddec39f096d10285d24e670ab2402608ddb3
+Author: nojimage <nojimage at gmail.com>
+Date:   Wed Apr 14 22:29:50 2010 +0900
+
+    mixiボイスの投稿修正
+
+commit ea07f1d03df6c1f09e9b178cf66666af8f7339f0
+Author: nojimage <nojimage at gmail.com>
+Date:   Wed Apr 14 22:23:03 2010 +0900
+
+    mixiボイスの返信取得の修正
+
+commit fd1baf15e71d38a2aec8c9cae91f7612f33a975d
+Author: nojimage <nojimage at gmail.com>
+Date:   Wed Apr 14 21:39:17 2010 +0900
+
+    mixiボイスの発言解析の修正 20100414
+
+commit c154eb488d5df64ae82e1477753bd4d4b1c5edf7
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Apr 12 22:49:49 2010 +0900
+
+    update PEAR libraries.
+
+commit 411ae393f60a616d3c0063cec05050fe7b39f24e
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Apr 12 22:32:19 2010 +0900
+
+    update config sample file.
+
+commit 645e9ed4c53f33fb16f026c708d98c14dc1a1c47
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Apr 12 22:27:43 2010 +0900
+
+    Update TODO
+
+commit 560ac18694074cf299f7d71e524bc42ad630c0d7
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Dec 5 09:03:37 2009 +0900
+
+    Update TODO
+
+commit 1ea266750bfcef0cb4effdab5ea9c386615ef5cb
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Dec 5 08:58:54 2009 +0900
+
+    config_fileを相対指定の場合、CONFIG_DIRからも取得するよう変更
+
+commit d12eaca81bae3f540fa9703f41deaef1033f4108
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 06:17:05 2009 +0900
+
+    pear Console_CommandLineを追加
+
+commit 3f6a676f47e6a6e013c500406cf94f16d5fe1d64
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 05:33:59 2009 +0900
+
+    debug を 0 に
+
+commit d254fff4af67cf8874bdac84e971be34872a05c7
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Oct 24 04:58:02 2009 +0900
+
+    version 2.0 beta3
+
 commit 587052c892c09d2af28aa95add4f557c18122c79
 Author: nojimage <nojimage at gmail.com>
 Date:   Sat Oct 24 04:56:47 2009 +0900

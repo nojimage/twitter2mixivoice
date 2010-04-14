@@ -11,9 +11,9 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.1
+ * @version    1.2
  * @author     nojimage <nojimage at gmail.com>
- * @copyright  2009 nojimage
+ * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link       http://php-tips.com/
  * @package    tw2mv

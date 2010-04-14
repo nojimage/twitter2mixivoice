@@ -10,9 +10,9 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @version   2.0 beta3
+ * @version   2.0.4
  * @author    nojimage <nojimage at gmail.com>
- * @copyright 2009 nojimage
+ * @copyright 2010 nojimage
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link    　http://php-tips.com/
  * @since   　File available since Release 2.0 beta1
