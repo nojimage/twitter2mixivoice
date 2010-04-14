@@ -131,12 +131,12 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
 
         // メッセージの作成
         $datas = array('body' => $message->make_message(150, $this->config->mixi_voice_message_suffix),
-            'post_key' => $this->post_key, 'redirect' => 'recent_echo');
+            'post_key' => $this->post_key, 'redirect' => 'recent_voice');
 
         if ($this->config->core_fetch_only) {
             debug($datas);
         } else {
-            $pages = $this->post_request(self::$HTTP_URI . 'add_echo.pl', $datas);
+            $pages = $this->post_request(self::$HTTP_URI . 'add_voice.pl', $datas);
         }
 
         // wait
@@ -157,7 +157,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         }
 
         // ページデータを取得
-        $page = $this->get_request(self::$HTTP_URI . 'recent_echo.pl');
+        $page = $this->get_request(self::$HTTP_URI . 'recent_voice.pl');
 
         if (preg_match('!<input.*?(?: name="post_key").*? value="(.*?)".*?/>|<input.*? value="(.*?)".*?(?: name="post_key").*?/>!u', $page, $matches)) {
             $this->post_key = $matches[1];
