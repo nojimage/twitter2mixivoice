@@ -114,7 +114,7 @@ class TW2MV
 
         if ($config->mixi_voice_reply_parse) {
             // Mixiボイスから返信を取得
-            $messages = $mixi_voice->getReplyMessages($config);
+            $messages = $mixi_voice->getReplyMessages();
 
             if (!empty($messages)) {
                 $twitter = new TW2MV_Twitter($config);

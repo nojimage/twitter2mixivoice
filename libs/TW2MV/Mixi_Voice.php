@@ -91,7 +91,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
 
         // ページを解析
         $page = $this->get_request(self::$HTTP_URI . 'list_voice.pl');
-        $result = $this->_parse($page, $last_message_id);
+        $result = $this->_parseReply($page, $last_message_id);
 
         if (empty($result) || !is_array($result)) {
             return false;
@@ -196,17 +196,37 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
 
         }
 
-        // 発言元の取得
-        if (preg_match_all('!<td class="nickname"><a href="list_echo.pl\?id=([\d]+)">(.*?)</a>!s', $page, $matches, PREG_SET_ORDER)) {
+        return $result;
+    }
+
+    
+    /**
+     * mixiボイスの各ページを解析して返信メッセージを取得
+     * @param string $page
+     * @param string $last_id
+     * @return array
+     */
+    protected function _parseReply($page, $last_id)
+    {
+        require_once 'Message.php';
+
+        $result = array();
+        
+        // 返信の取得
+        if (preg_match_all('!class="commentNickname">(.*?)</a>.*?<p class="commentBody">(.*?)<span.*?name="comment_member_id".*?value="([0-9]+?)".*?name="comment_post_time".*?value="([0-9]+?)"!us', $page, $matches, PREG_SET_ORDER)) {
             for ($i = 0; $i < count($matches); $i++)
             {
-                if ($matches[$i][2] <= $last_id) {
+                if ($matches[$i][4] <= $last_id) {
                     // post_timeが前回取得より古い
                     continue;
                 }
 
-                $result[$i]->from_id = $matches[$i][1];
-                $result[$i]->from    = trim($matches[$i][2]);
+                $message = new TW2MV_Message();
+                $message->from    = trim($matches[$i][1]);
+                $message->message = $message->from . ': ' . strip_tags($matches[$i][2]);
+                $message->from_id = $matches[$i][3];
+                $message->id      = $matches[$i][4];
+                $result[] = $message;
             }
         }
 
@@ -263,23 +283,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
      */
     protected function _filter_reply($messages)
     {
-        $passed = array();
-
-        foreach ($messages as $message)
-        {
-
-            if (empty($message->to_id) || $message->to_id != $this->mixi_user_id) {
-                // 自分への返信ではない場合除外
-                continue;
-            }
-
-            $message->message = $message->from . ': ' . $message->message;
-
-            $passed[] = $message;
-
-        }
-
-        return $passed;
+        return $messages;
     }
 
     /**
