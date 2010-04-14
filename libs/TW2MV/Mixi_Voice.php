@@ -55,7 +55,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         $last_message_id = $this->get_last_message_id('my_voice');
 
         // ページを解析
-        $page = $this->get_request(self::$HTTP_URI . 'list_echo.pl');
+        $page = $this->get_request(self::$HTTP_URI . 'list_voice.pl');
         $result = $this->_parse($page, $last_message_id);
 
         if (empty($result) || !is_array($result)) {
@@ -90,7 +90,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         $last_message_id = $this->get_last_message_id('reply');
 
         // ページを解析
-        $page = $this->get_request(self::$HTTP_URI . 'res_echo.pl');
+        $page = $this->get_request(self::$HTTP_URI . 'list_voice.pl');
         $result = $this->_parse($page, $last_message_id);
 
         if (empty($result) || !is_array($result)) {
@@ -177,7 +177,9 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         require_once 'Message.php';
 
         $result = array();
-        if (preg_match_all('!<td class="comment">(.*)<span>.*post_time=([0-9]+)!', $page, $matches, PREG_SET_ORDER)) {
+        
+        // 自分の発言の取得
+        if (preg_match_all('!<div class="voiced">.*?<p>(.*?)<span>.*?post_time=([0-9]+)!us', $page, $matches, PREG_SET_ORDER)) {
 
             for ($i = 0; $i < count($matches); $i++)
             {
@@ -186,20 +188,9 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
                     continue;
                 }
 
-                $to_id = null;
-                $to    = null;
-                $msg   = $matches[$i][1];
-                if ( preg_match('!^<a href="view_echo.pl\?from=nickname&id=([\d]+)&.*?&gt;&gt;(.*?)</a>(.*)$!', $msg, $idmatch) ) {
-                    // 発言先
-                    $to_id = $idmatch[1];
-                    $to    = $idmatch[2];
-                    $msg   = $idmatch[3];
-                }
                 $message = new TW2MV_Message();
                 $message->id = $matches[$i][2];
-                $message->message = strip_tags($msg);
-                $message->to_id = $to_id;
-                $message->to = $to;
+                $message->message = strip_tags($matches[$i][1]);
                 $result[] = $message;
             }
 
