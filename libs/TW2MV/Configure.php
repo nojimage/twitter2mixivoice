@@ -6,14 +6,14 @@
  *
  * PHP versions 5
  *
- * Copyright 2009, nojimage (http://php-tips.com/)
+ * Copyright 2010, nojimage (http://php-tips.com/)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.2
+ * @version    1.3
  * @author     nojimage <nojimage at gmail.com>
- * @copyright  2009 nojimage
+ * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link       http://php-tips.com/
  * @package    tw2mv
@@ -53,7 +53,7 @@ class TW2MV_Configure
      * @var bool
      */
     public $core_fetch_only = false;
-    
+
     /**
      * 実行時にパスワードを暗号化して設定ファイルを書き換えるか
      * @var bool
@@ -144,13 +144,13 @@ class TW2MV_Configure
     function load($config_file, $options = null)
     {
         if (!is_file($config_file)) {
-            
+
             // 相対指定の場合は、CONFIG_DIRディレクトリからも走査
             if (strpos($config_file, DS) !== NULL) {
                 $config_file = CONFIG_DIR . $config_file;
                 debug($config_file);
             }
-            
+
             // それでも無いなら終了
             if (!is_file($config_file)) {
                 debug('config file not found.');
@@ -167,11 +167,27 @@ class TW2MV_Configure
 
         foreach (array_keys($config) as $section)
         {
-            foreach (array_keys($config[$section]) as $key)
-            {
-                // ファイルからのオプションをセット
-                $this->{strtolower($section) . '_' . str_replace('.', '_', $key)} = $config[$section][$key];
+
+            if (in_array(strtolower($section), array('core', 'mixi', 'mixi_voice', 'twitter'))) {
+                // 2.0.4以前のオプション設定
+                foreach (array_keys($config[$section]) as $key)
+                {
+                    $key_name = strtolower($section) . '_' . str_replace('.', '_', $key);
+                    if (in_array($key_name, get_class_vars(__CLASS__))) {
+                        // ファイルからのオプションをセット
+                        $this->{$key_name} = $config[$section][$key];
+                    }
+                }
+            } else {
+                // 2.0.5以降のオプション設定
+                $key_name = str_replace('.', '_', strtolower($section));
+                if (in_array($key_name, get_class_vars(__CLASS__))) {
+                    // ファイルからのオプションをセット
+                    $this->{$key_name} = $config[$section];
+                }
+
             }
+
         }
 
         // -- パスワードを暗号化する
@@ -238,7 +254,7 @@ class TW2MV_Configure
     protected function _secure($config_file = null)
     {
         $file_update = false;
-        
+
         foreach (array('mixi_password', 'twitter_password') as $key)
         {
             // -- 既に暗号化されていないかチェック
@@ -257,7 +273,7 @@ class TW2MV_Configure
             // 設定ファイルの書き換えを行わない
             return;
         }
-        
+
         // 設定ファイルを書き換え
         $lines = file($config_file);
         $type  = '';
@@ -266,9 +282,11 @@ class TW2MV_Configure
                 $type = $matches[1];
             } else if (preg_match('/^password\s*=\s*/', $lines[$i], $matches) && !empty($type)) {
                 $lines[$i] = 'password="' . $this->{strtolower($type) . '_password'} . '"' . "\n";
+            } else if (preg_match('/^((mixi|twitter)[\._])password\s*=\s*/', $lines[$i], $matches)) {
+                $lines[$i] = $matches[1].'password="' . $this->{$matches[2] . '_password'} . '"' . "\n";
             }
         }
-        
+
         // 書き出し
         if ($fh = fopen($config_file, 'a')) {
             if (flock($fh, LOCK_EX)) {
@@ -280,7 +298,7 @@ class TW2MV_Configure
             }
             fclose($fh);
         }
-        
+
         return;
 
     }
