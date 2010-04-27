@@ -29,7 +29,7 @@ class TW2MV_Twitter extends TW2MV_Client
      *
      * @var string
      */
-    static $HTTP_URI = 'http://twitter.com/';
+    static $HTTP_URI = 'http://api.twitter.com/1/';
 
     /**
      * Twitterから発言を取得
@@ -88,6 +88,10 @@ class TW2MV_Twitter extends TW2MV_Client
             // 投稿
             $this->http->setAuth($this->config->twitter_username, TW2MV_Configure::decrypt($this->config->twitter_password));
             $result = $this->_json_decode($this->post_request(self::$HTTP_URI . 'statuses/update.json', $datas, true));
+        }
+        
+        if (!empty($result->error)) {
+            debug($result->error);
         }
 
         return empty($result->error);

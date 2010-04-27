@@ -36,7 +36,7 @@ class TW2MV
         if (empty($config_file)) {
             $config_file = CONFIG_DIR . 'tw2mv.ini.php';
         }
-        
+
         // 設定読み込み
         require_once('TW2MV' . DS . 'Configure.php');
         $config = new TW2MV_Configure($config_file, $options);
@@ -132,7 +132,7 @@ class TW2MV
 
     /**
      * コマンドラインオプションのセット
-     * 
+     *
      * @param $argc
      * @param $argv
      * @return Console_CommandLine_Result
@@ -147,18 +147,18 @@ class TW2MV
         require_once('TW2MV' . DS . 'Configure.php');
         // オプションのセット
         TW2MV_Configure::set_commandline_parser($parser);
-        
+
         // 引数の追加
         $parser->addArgument('config_files', array(
             'optional'    => true,
             'multiple'    => true,
             'description' => '設定ファイル'));
-        
+
         // パーサの実行
         try {
             $result = $parser->parse($argc, $argv);
             return $result;
-            
+
         } catch (Exception $e) {
             $parser->displayError($e->getMessage());
 
