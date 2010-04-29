@@ -1,3 +1,39 @@
+commit bc42466022622026879998f81bd4f6f9718afcaf
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Apr 29 22:47:05 2010 +0900
+
+    update version
+
+commit ea57ced14b323dfe39f037dcdc3aca5babbcb590
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Apr 29 22:44:16 2010 +0900
+
+    Twitter xAuth Support
+
+commit 78b240e12723e89109ab793d1641c1c11735417b
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Apr 29 15:11:29 2010 +0900
+
+    add HTTP_OAuth 0.1.10
+
+commit a3c1f65fcd5b382d4ef5877345b64e1eea16c7b1
+Author: nojimage <nojimage at gmail.com>
+Date:   Tue Apr 27 13:25:20 2010 +0900
+
+    twitter api uri fix
+
+commit 26f6ef38af2e48a5ceadf4df8492b942a9f6bb6a
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Apr 26 20:25:16 2010 +0900
+
+    設定ファイルの書式を拡張
+
+commit adf88a5be2605b3b0b4fc442cae987ad173059ed
+Author: nojimage <nojimage at gmail.com>
+Date:   Wed Apr 14 22:36:37 2010 +0900
+
+    version 2.0.4
+
 commit 2723ddec39f096d10285d24e670ab2402608ddb3
 Author: nojimage <nojimage at gmail.com>
 Date:   Wed Apr 14 22:29:50 2010 +0900
