@@ -26,6 +26,13 @@ class TW2MV_Configure
 {
     /**
      *
+     * @var string
+     * @since version 2.1.0
+     */
+    public $config_file = '';
+
+    /**
+     *
      * @var array
      */
     public $config;
@@ -119,6 +126,34 @@ class TW2MV_Configure
     public $twitter_filter_allows = array();
 
     /**
+     * OAuth Consumer Key
+     * @var string
+     * @since version 2.1.0
+     */
+    public $twitter_oauth_consumer_key = 'sKLeVx7IpK3rKByLn218w';
+
+    /**
+     * OAuth Consumer Secret Key
+     * @var string
+     * @since version 2.1.0
+     */
+    public $twitter_oauth_consumer_secret = 'DSwg6gZyPoh3frNBXGY7lzuxU2X8DYh9nrj0';
+
+    /**
+     * OAuth Access Token
+     * @var string
+     * @since version 2.1.0
+     */
+    public $twitter_oauth_access_token = '';
+
+    /**
+     * OAuth Access Token Secret
+     * @var string
+     * @since version 2.1.0
+     */
+    public $twitter_oauth_access_token_secret = '';
+
+    /**
      * パスワードが暗号化されている場合に付与される文字列
      * @var string
      */
@@ -201,6 +236,8 @@ class TW2MV_Configure
         }
 
         $this->config = $config;
+
+        $this->config_file = $config_file;
 
         return get_object_vars($this);
     }
@@ -347,11 +384,62 @@ class TW2MV_Configure
 
     /**
      * 暗号化用のキーを取得する
+     * 
      * @return string
      */
     static function get_secure_key()
     {
         $key_file = CONFIG_DIR . 'secret_key.php';
         return (is_file($key_file)) ? sha1(file_get_contents($key_file)) : 'gre#jTG%EihogNu04t6uXewR@lglew';
+    }
+
+    /**
+     * Access Tokenを保存
+     * 
+     * @param $oauth_token
+     * @param $oauth_token_secret
+     * @since version 2.1.0
+     */
+    function saveTwitterAccessToken($oauth_token, $oauth_token_secret)
+    {
+
+        $this->twitter_oauth_access_token = $oauth_token;
+        $this->twitter_oauth_access_token_secret = $oauth_token_secret;
+
+        // 設定ファイル読み込み
+        $file_contents = file_get_contents($this->config_file);
+
+        if (preg_match('/^(twitter.oauth_access_token)\s*=\s*".*?"/i', $file_contents)) {
+
+            $file_contents = preg_replace('/^(twitter.oauth_access_token)\s*=\s*".*?"/i',  '$1 = "'. $oauth_token . '"', $file_contents);
+
+        } else {
+
+            $file_contents .= "\n";
+            $file_contents .= 'twitter.oauth_access_token = "' . $oauth_token . '"';
+
+        }
+
+        if (preg_match('/^(twitter.oauth_access_token_secret)\s*=\s*".*?"/i', $file_contents)) {
+
+            $file_contents = preg_replace('/^(twitter.oauth_access_token_secret)\s*=\s*".*?"/i',  '$1 = "'. $oauth_token_secret . '"', $file_contents);
+
+        } else {
+
+            $file_contents .= "\n";
+            $file_contents .= 'twitter.oauth_access_token_secret = "' . $oauth_token_secret . '"';
+
+        }
+
+        // 書き出し
+        if ($fh = fopen($this->config_file, 'a')) {
+            if (flock($fh, LOCK_EX)) {
+                ftruncate($fh, 0);
+                fwrite($fh, $file_contents);
+                flock($fh, LOCK_UN);
+            }
+            fclose($fh);
+        }
+
     }
 }

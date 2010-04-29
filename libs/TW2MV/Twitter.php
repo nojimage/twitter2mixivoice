@@ -1,5 +1,6 @@
 <?php
 require_once 'Client.php';
+require_once 'HTTP' . DS . 'OAuth' . DS . 'Consumer.php';
 /**
  * TW2MV_Twitter
  *
@@ -7,14 +8,14 @@ require_once 'Client.php';
  *
  * PHP versions 5
  *
- * Copyright 2009, nojimage (http://php-tips.com/)
+ * Copyright 2010, nojimage (http://php-tips.com/)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.1
+ * @version    1.2
  * @author     nojimage <nojimage at gmail.com>
- * @copyright  2009 nojimage
+ * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link       http://php-tips.com/
  * @package    tw2mv
@@ -30,6 +31,59 @@ class TW2MV_Twitter extends TW2MV_Client
      * @var string
      */
     static $HTTP_URI = 'http://api.twitter.com/1/';
+
+    /**
+     * HTTP_OAuth_Consumer
+     *
+     * @var HTTP_OAuth_Consumer
+     * @since version 2.1.0
+     */
+    protected $oauth;
+
+    /**
+     * xAuth request url
+     *
+     * @var string
+     * @since version 2.1.0
+     */
+    static $XAUTH_ACCESS_TOKEN_REQUEST_URL = 'https://api.twitter.com/oauth/access_token';
+
+    /**
+     *
+     * @param TW2MV_Configure
+     * @since version 2.1.0
+     */
+    public function __construct($config)
+    {
+        parent::__construct($config);
+
+        try {
+
+            // OAuthリクエスト
+            $consumer_request = new HTTP_OAuth_Consumer_Request();
+            $consumer_request->accept($this->http);
+
+            $this->oauth = new HTTP_OAuth_Consumer($this->config->twitter_oauth_consumer_key, $this->config->twitter_oauth_consumer_secret);
+            $this->oauth->accept($consumer_request);
+
+            if (empty($this->config->twitter_oauth_access_token) || empty($this->config->twitter_oauth_access_token_secret)) {
+
+                // Access Tokenを取得
+                $this->_getAccessToken();
+
+            }
+
+            // トークンをセット
+            $this->oauth->setToken($this->config->twitter_oauth_access_token);
+            $this->oauth->setTokenSecret($this->config->twitter_oauth_access_token_secret);
+
+        } catch (Exception $e) {
+
+            debug($e->getMessage());
+
+        }
+
+    }
 
     /**
      * Twitterから発言を取得
@@ -83,15 +137,20 @@ class TW2MV_Twitter extends TW2MV_Client
         $datas = array('status' => $message->make_message(140, $this->config->twitter_message_suffix));
 
         if ($this->config->core_fetch_only) {
+
             debug($datas);
+
         } else {
+
             // 投稿
-            $this->http->setAuth($this->config->twitter_username, TW2MV_Configure::decrypt($this->config->twitter_password));
             $result = $this->_json_decode($this->post_request(self::$HTTP_URI . 'statuses/update.json', $datas, true));
+
         }
-        
+
         if (!empty($result->error)) {
+
             debug($result->error);
+
         }
 
         return empty($result->error);
@@ -110,10 +169,13 @@ class TW2MV_Twitter extends TW2MV_Client
 
         // 投稿
         if ($this->config->core_fetch_only) {
+
             debug($datas);
+
         } else {
-            $this->http->setAuth($this->config->twitter_username, TW2MV_Configure::decrypt($this->config->twitter_password));
+
             $result = $this->_json_decode($this->post_request(self::$HTTP_URI . 'direct_messages/new.json', $datas, true));
+
         }
 
         return empty($result->error);
@@ -207,5 +269,58 @@ class TW2MV_Twitter extends TW2MV_Client
         }
 
         return $passed;
+    }
+
+    /**
+     * OAuth Access Tokenの取得
+     *
+     * @since version 2.1.0
+     */
+    protected function _getAccessToken()
+    {
+        $params = array(
+            'x_auth_mode' => 'client_auth',
+            'x_auth_username' => $this->config->twitter_username, 
+            'x_auth_password' => TW2MV_Configure::decrypt($this->config->twitter_password));
+         
+        $response = $this->oauth->sendRequest(self::$XAUTH_ACCESS_TOKEN_REQUEST_URL, $params, HTTP_Request2::METHOD_POST);
+
+        if ($response->getStatus() !== 200) {
+            throw new Exception($response->getBody(), $response->getStatus());
+        }
+
+        // レスポンスデータを解析
+        $access_token_info = array();
+        parse_str($response->getBody(), $access_token_info);
+
+        // 設定ファイルへ保存
+        $this->config->saveTwitterAccessToken($access_token_info['oauth_token'], $access_token_info['oauth_token_secret']);
+    }
+
+    /**
+     * POST Request
+     *
+     * @param $url
+     * @param $datas
+     * @return string
+     * @since version 2.1.0
+     */
+    public function post_request($url, $datas = array())
+    {
+
+        $body = '';
+
+        try {
+
+            $response = $this->oauth->sendRequest($url, $datas, HTTP_Request2::METHOD_POST);
+            $body = $response->getBody();
+
+        } catch (Exception $e) {
+
+            debug($e->getMessage());
+
+        }
+
+        return $body;
     }
 }
