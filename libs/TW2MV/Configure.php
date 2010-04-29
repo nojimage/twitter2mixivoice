@@ -214,7 +214,7 @@ class TW2MV_Configure
                     }
                 }
             } else {
-                // 2.0.5以降のオプション設定
+                // 2.1.0以降のオプション設定
                 $key_name = str_replace('.', '_', strtolower($section));
                 if (in_array($key_name, get_class_vars(__CLASS__))) {
                     // ファイルからのオプションをセット
