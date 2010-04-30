@@ -1,3 +1,45 @@
+commit c80f83d0dc47532b663d59c6b7094bb90753ea42
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 21:50:37 2010 +0900
+
+    update version
+
+commit 13ce7559990e595763d11224f3a6ab56d9afb153
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 21:48:25 2010 +0900
+
+    VERSIONファイルからversion番号を取得
+
+commit 14225074cb5f9cce88817127e112064ac729c156
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 21:38:17 2010 +0900
+
+    tw2mvを利用してmixiから転送されたメッセージの除外(source利用)
+
+commit 4e036970e49cfd6c00d07293db30a32f3756bb0b
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 21:09:02 2010 +0900
+
+    mixiボイス投稿時のwaitを実投稿時のみに適用
+
+commit f4c6cc415ca4b3f0efe7f9ce08338061abd22939
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 20:37:49 2010 +0900
+
+    update README url
+
+commit 24a78c373645286bef5a3e4036716a6c64f09d0c
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 20:35:22 2010 +0900
+
+    update license year.
+
+commit b494613dea1768570e6168979dbca24980671a8d
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Apr 29 22:48:27 2010 +0900
+
+    version 2.1.0
+
 commit bc42466022622026879998f81bd4f6f9718afcaf
 Author: nojimage <nojimage at gmail.com>
 Date:   Thu Apr 29 22:47:05 2010 +0900
