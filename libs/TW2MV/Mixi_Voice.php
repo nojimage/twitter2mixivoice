@@ -121,12 +121,16 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
     {
         // MV2TWのサフィックスが含まれていないチェック
         if (mb_strpos($message->message, $this->config->twitter_message_suffix) !== FALSE) {
+
             return false;
+
         }
 
         // ポストキーの取得
         if (empty($this->post_key)) {
+
             $this->get_post_key();
+
         }
 
         // メッセージの作成
@@ -134,13 +138,18 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
             'post_key' => $this->post_key, 'redirect' => 'recent_voice');
 
         if ($this->config->core_fetch_only) {
+
             debug($datas);
+
         } else {
+
             $pages = $this->post_request(self::$HTTP_URI . 'add_voice.pl', $datas);
+
+            // wait
+            sleep($this->config->mixi_voice_post_interval);
+
         }
 
-        // wait
-        sleep($this->config->mixi_voice_post_interval);
 
     }
 
@@ -177,7 +186,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         require_once 'Message.php';
 
         $result = array();
-        
+
         // 自分の発言の取得
         if (preg_match_all('!<div class="voiced">.*?<p>(.*?)<span>.*?post_time=([0-9]+)!us', $page, $matches, PREG_SET_ORDER)) {
 
@@ -199,7 +208,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         return $result;
     }
 
-    
+
     /**
      * mixiボイスの各ページを解析して返信メッセージを取得
      * @param string $page
@@ -212,7 +221,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         require_once 'Message.php';
 
         $result = array();
-        
+
         // 返信の取得
         if (preg_match_all('!class="commentNickname">(.*?)</a>.*?<p class="commentBody">(.*?)<span.*?name="comment_member_id".*?value="([0-9]+?)".*?name="comment_post_time".*?value="([0-9]+?)"!us', $page, $matches, PREG_SET_ORDER)) {
             for ($i = 0; $i < count($matches); $i++)
