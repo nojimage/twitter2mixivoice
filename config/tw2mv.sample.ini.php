@@ -77,6 +77,9 @@ twitter.password = ""
 ;; メッセージ取得時、twitterの発言から他のユーザへの返信を除外するか（yes/no デフォルト: yes）
 ;twitter.exclude_reply = yes
 
+;; メッセージ取得時、tw2mvを利用してmixiから転送されたメッセージを除外するか（yes/no デフォルト: yes）
+;twitter.exclude_tw2mv = yes
+
 ;; twitterのメッセージ取得時、除外するキーワード
 ;twitter.filter.denys[]  = '除外キーワードA'
 ;twitter.filter.denys[]  = '除外キーワードB'

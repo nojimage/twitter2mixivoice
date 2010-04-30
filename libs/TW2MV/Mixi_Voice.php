@@ -12,7 +12,7 @@ require_once 'Mixi.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.1
+ * @version    1.2
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -120,7 +120,7 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
     function post($message)
     {
         // MV2TWのサフィックスが含まれていないチェック
-        if (mb_strpos($message->message, $this->config->twitter_message_suffix) !== FALSE) {
+        if (!empty($this->config->twitter_message_suffix) && mb_strpos($message->message, $this->config->twitter_message_suffix) !== FALSE) {
 
             return false;
 

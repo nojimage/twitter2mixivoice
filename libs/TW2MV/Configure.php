@@ -11,7 +11,7 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.3
+ * @version    1.4
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -109,9 +109,18 @@ class TW2MV_Configure
 
     /**
      * メッセージ取得時、twitterの発言から他のユーザへの返信を除外するか
-     * @var string
+     *
+     * @var bool
      */
     public $twitter_exclude_reply = true;
+
+    /**
+     * tw2mvを利用してPOSTしたメッセージを除外するか
+     *
+     * @var bool
+     * @since version 2.1.1
+     */
+    public $twitter_exclude_tw2mv = true;
 
     /**
      * twitterのメッセージ取得時、除外するキーワード
@@ -384,7 +393,7 @@ class TW2MV_Configure
 
     /**
      * 暗号化用のキーを取得する
-     * 
+     *
      * @return string
      */
     static function get_secure_key()
@@ -395,7 +404,7 @@ class TW2MV_Configure
 
     /**
      * Access Tokenを保存
-     * 
+     *
      * @param $oauth_token
      * @param $oauth_token_secret
      * @since version 2.1.0

@@ -30,6 +30,7 @@ class TW2MV_Message
     public $from_id;
     public $to;
     public $to_id;
+    public $source;
 
     /**
      * 指定文字数に丸める

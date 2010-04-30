@@ -13,7 +13,7 @@ require_once 'HTTP' . DS . 'OAuth' . DS . 'Consumer.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.2
+ * @version    1.3
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -237,6 +237,7 @@ class TW2MV_Twitter extends TW2MV_Client
             $msg->from_id = $data->user->id;
             $msg->to = $data->in_reply_to_screen_name;
             $msg->to_id = $data->in_reply_to_user_id;
+            $msg->source = $data->source;
 
             $messages[] = $msg;
         }
@@ -258,12 +259,23 @@ class TW2MV_Twitter extends TW2MV_Client
         {
             // 返信を省く
             if ($this->config->twitter_exclude_reply && !empty($message->to)) {
+
                 continue;
+
+            }
+
+            // tw2mvから送信されたメッセージを省く
+            if ($this->config->twitter_exclude_tw2mv && !empty($message->source) && preg_match('/tw2mv/', $message->source)) {
+
+                continue;
+
             }
 
             // フィルタリング
             if ($this->_post_filter($message->message, $this->config->twitter_filter_denys, $this->config->twitter_filter_allows)) {
+
                 $passed[] = $message;
+
             }
 
         }
