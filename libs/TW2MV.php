@@ -142,8 +142,15 @@ class TW2MV
         require_once 'Console/CommandLine.php';
         $parser = new Console_CommandLine(array(
             'description' => 'twitterとmixiボイス間でメッセージの転送を行うスクリプトです。',
-            'version' => '2.1.0'));
+            'version' => 'unknown'));
+        
+        if (is_file(dirname(dirname(__FILE__)) . DS . 'VERSION')) {
 
+            // VERSIONファイルからバージョン番号を取得
+            $parser->version = trim(file_get_contents(dirname(dirname(__FILE__)) . DS . 'VERSION'));
+            
+        }
+        
         require_once('TW2MV' . DS . 'Configure.php');
         // オプションのセット
         TW2MV_Configure::set_commandline_parser($parser);
