@@ -77,6 +77,11 @@ twitter.password = ""
 ;; メッセージ取得時、twitterの発言から他のユーザへの返信を除外するか（yes/no デフォルト: yes）
 ;twitter.exclude_reply = yes
 
+;; 返信メッセージの判定を簡易的に行うか（yes/no デフォルト: yes）
+;; yes の場合、先頭に「@」がついたものは全て返信として扱われます。
+;; no の場合、in_reply_to_* が存在するもののみ返信として扱われます。(v2.1.1以前の動作
+;twitter.loose_reply_match = yes
+
 ;; メッセージ取得時、tw2mvを利用してmixiから転送されたメッセージを除外するか（yes/no デフォルト: yes）
 ;twitter.exclude_tw2mv = yes
 

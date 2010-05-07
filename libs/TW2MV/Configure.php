@@ -11,7 +11,7 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.4
+ * @version    1.5
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -161,6 +161,16 @@ class TW2MV_Configure
      * @since version 2.1.0
      */
     public $twitter_oauth_access_token_secret = '';
+
+    /**
+     * 返信メッセージの判定を簡易的に行うか
+     * true:  先頭に「@」が付くものを返信として扱う
+     * false: in_reply_to_screen_nameによる判定を行う (version 2.1.1以前の動作
+     *
+     * @var   bool
+     * @since version 2.1.2
+     */
+    public $twitter_loose_replay_match = true;
 
     /**
      * パスワードが暗号化されている場合に付与される文字列
