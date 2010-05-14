@@ -170,7 +170,7 @@ class TW2MV_Configure
      * @var   bool
      * @since version 2.1.2
      */
-    public $twitter_loose_replay_match = true;
+    public $twitter_loose_reply_match = true;
 
     /**
      * パスワードが暗号化されている場合に付与される文字列
