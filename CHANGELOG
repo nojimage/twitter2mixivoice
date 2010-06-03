@@ -1,3 +1,27 @@
+commit ab2858b43ef70fbc0173d490c767edccd050d331
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Jun 3 21:48:54 2010 +0900
+
+    設定ファイルサンプルの修正
+
+commit 81b8e1b1a93525064a9dcf779b47146c70416707
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri May 14 10:09:31 2010 +0900
+
+    fixed typo "twitter_loose_replay_match" -> "twitter_loose_reply_match"
+
+commit 19feddda1539fa5419d2a26b4e3d16aeef846136
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri May 7 23:48:29 2010 +0900
+
+    Twitterの返信判定を簡易的に行うフラグを追加
+
+commit 60ce6e73c85b02d54dfd91ad02ae25bfa0a6a021
+Author: nojimage <nojimage at gmail.com>
+Date:   Fri Apr 30 21:51:19 2010 +0900
+
+    version 2.1.1
+
 commit c80f83d0dc47532b663d59c6b7094bb90753ea42
 Author: nojimage <nojimage at gmail.com>
 Date:   Fri Apr 30 21:50:37 2010 +0900
