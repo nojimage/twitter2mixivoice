@@ -10,7 +10,7 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @version   2.1.2
+ * @version   2.1.3
  * @author    nojimage <nojimage at gmail.com>
  * @copyright 2010 nojimage
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License

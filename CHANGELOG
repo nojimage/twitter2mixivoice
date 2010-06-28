@@ -1,3 +1,15 @@
+commit dcc57c698b32c6186c54a4cd1d95cfa82841eb86
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Jun 28 10:58:56 2010 +0900
+
+    フィルターの正規表現対応
+
+commit f6dca17c673f1c92742399a62fd7ee944326fe96
+Author: nojimage <nojimage at gmail.com>
+Date:   Thu Jun 3 21:53:46 2010 +0900
+
+    version 2.1.2
+
 commit ab2858b43ef70fbc0173d490c767edccd050d331
 Author: nojimage <nojimage at gmail.com>
 Date:   Thu Jun 3 21:48:54 2010 +0900
