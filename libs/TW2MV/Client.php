@@ -174,9 +174,22 @@ class TW2MV_Client
         if (!empty($denys)) {
             foreach ($denys as $filter)
             {
-                if (mb_strpos($message, $filter) !== FALSE) {
-                    // 文字列が存在する場合
-                    return false;
+                if (preg_match('!^/(.+)/[imsu]*$!', $filter)) {
+
+                    if (!preg_match('!/[ims]*u[ims]*$!', $filter)) {
+                        $filter .= 'u';
+                    }
+
+                    // 正規表現によるチェック
+                    if (preg_match($filter, $message)) {
+                        // 文字列が存在する場合
+                        return false;
+                    }
+                } else {
+                    if (mb_strpos($message, $filter) !== FALSE) {
+                        // 文字列が存在する場合
+                        return false;
+                    }
                 }
             }
         }
@@ -186,10 +199,23 @@ class TW2MV_Client
             $is_allow = false;
             foreach ($allows as $filter)
             {
-                if (mb_strpos($message, $filter) !== FALSE) {
-                    // 文字列が存在する場合
-                    $is_allow = true;
-                    break;
+                if (preg_match('!^/(.+)/[imsu]*$!', $filter)) {
+                    // 正規表現によるチェック
+                    if (!preg_match('!/[ims]*u[ims]*$!', $filter)) {
+                        $filter .= 'u';
+                    }
+
+                    if (preg_match($filter, $message)) {
+                        // 文字列が存在する場合
+                        $is_allow = true;
+                        break;
+                    }
+                } else {
+                    if (mb_strpos($message, $filter) !== FALSE) {
+                        // 文字列が存在する場合
+                        $is_allow = true;
+                        break;
+                    }
                 }
             }
             if (!$is_allow) {

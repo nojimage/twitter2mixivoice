@@ -52,10 +52,12 @@ mixi.password = ""
 ;mixi_voice.exclude_reply = yes
 
 ;; mixiボイスのメッセージ取得時、除外するキーワード
+;; "/キーワード/" とすると正規表現として評価されます。(preg_match)
 ;mixi_voice.filter.denys[]  = "除外キーワードA"
 ;mixi_voice.filter.denys[]  = "除外キーワードB"
 
 ;; mixiボイスのメッセージ取得時、許可するキーワード
+;; "/キーワード/" とすると正規表現として評価されます。(preg_match)
 ;mixi_voice.filter.allows[] = "許可キーワードA"
 ;mixi_voice.filter.allows[] = "許可キーワードB"
 
@@ -86,9 +88,11 @@ twitter.password = ""
 ;twitter.exclude_tw2mv = yes
 
 ;; twitterのメッセージ取得時、除外するキーワード
+;; "/キーワード/" とすると正規表現として評価されます。(preg_match)
 ;twitter.filter.denys[]  = "除外キーワードA"
 ;twitter.filter.denys[]  = "除外キーワードB"
 
 ;; twitterのメッセージ取得時、許可するキーワード
+;; "/キーワード/" とすると正規表現として評価されます。(preg_match)
 ;twitter.filter.allows[] = "許可キーワードA"
 ;twitter.filter.allows[] = "許可キーワードB"
