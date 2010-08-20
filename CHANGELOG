@@ -1,3 +1,21 @@
+commit 02d4ec473456cad41a436cfee31941efc622b45e
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Aug 21 04:32:12 2010 +0900
+
+    update copyright
+
+commit 41b59857bbb8c5cb6852f59ca8da0251594bc620
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Aug 21 04:28:40 2010 +0900
+
+    mixi公式のTwitter転送を除外
+
+commit 5e4f65f6541252c4d62699b5d29bf4ed860e76ca
+Author: nojimage <nojimage at gmail.com>
+Date:   Mon Jun 28 11:01:49 2010 +0900
+
+    version 2.1.3
+
 commit dcc57c698b32c6186c54a4cd1d95cfa82841eb86
 Author: nojimage <nojimage at gmail.com>
 Date:   Mon Jun 28 10:58:56 2010 +0900
