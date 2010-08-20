@@ -6,7 +6,7 @@
  *
  * PHP versions 5
  *
- * Copyright 2009, nojimage (http://php-tips.com/)
+ * Copyright 2010, nojimage (http://php-tips.com/)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
