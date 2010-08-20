@@ -7,12 +7,12 @@ require_once 'Mixi.php';
  *
  * PHP versions 5
  *
- * Copyright 2009, nojimage (http://php-tips.com/)
+ * Copyright 2010, nojimage (http://php-tips.com/)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.2
+ * @version    1.3
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -188,10 +188,14 @@ class TW2MV_Mixi_Voice extends TW2MV_Mixi
         $result = array();
 
         // 自分の発言の取得
-        if (preg_match_all('!<div class="voiced">.*?<p>(.*?)<span>.*?post_time=([0-9]+)!us', $page, $matches, PREG_SET_ORDER)) {
+        if (preg_match_all('!<div class="voiced">.*?<p>(.*?)<span>.*?post_time=([0-9]+)(.*?)</p>!us', $page, $matches, PREG_SET_ORDER)) {
 
             for ($i = 0; $i < count($matches); $i++)
             {
+                if (preg_match('!<span +class="source">(.+)</span>!us', $matches[$i][3])) {
+                    // 公式転送
+                    continue;
+                }
                 if ($matches[$i][2] <= $last_id) {
                     // post_timeが前回取得より古い
                     continue;
