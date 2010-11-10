@@ -13,7 +13,7 @@ require_once 'HTTP' . DS . 'OAuth' . DS . 'Consumer.php';
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @version    1.4
+ * @version    1.5
  * @author     nojimage <nojimage at gmail.com>
  * @copyright  2010 nojimage
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License

@@ -1,3 +1,15 @@
+commit b9f10d485a43df191d47c23d71e57e6add89be59
+Author: nojimage <nojimage at gmail.com>
+Date:   Wed Nov 10 23:04:47 2010 +0900
+
+    twitter tweet id using id_str
+
+commit 74a419bc97349625ce6d145f7e2971cd8f5b5ced
+Author: nojimage <nojimage at gmail.com>
+Date:   Sat Aug 21 04:34:30 2010 +0900
+
+    version 2.1.4
+
 commit 02d4ec473456cad41a436cfee31941efc622b45e
 Author: nojimage <nojimage at gmail.com>
 Date:   Sat Aug 21 04:32:12 2010 +0900
