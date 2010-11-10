@@ -231,10 +231,10 @@ class TW2MV_Twitter extends TW2MV_Client
         foreach ($datas as $data)
         {
             $msg = new TW2MV_Message();
-            $msg->id = $data->id;
+            $msg->id = $data->id_str;
             $msg->message = $data->text;
             $msg->from = $data->user->name;
-            $msg->from_id = $data->user->id;
+            $msg->from_id = $data->user->id_str;
             $msg->to = $data->in_reply_to_screen_name;
             $msg->to_id = $data->in_reply_to_user_id;
             $msg->source = $data->source;
